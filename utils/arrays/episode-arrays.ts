@@ -1,3 +1,4 @@
+// The list of pages where I tried to pull the episode images from, but didn't workout
 export const banners = [
   "https://static.wikia.nocookie.net/rickandmorty/images/4/4b/S1e1_Rick-and-morty.png",
   "https://static.wikia.nocookie.net/rickandmorty/images/d/d7/Lawnmower_Dog.png",
@@ -52,6 +53,7 @@ export const banners = [
   "https://static.wikia.nocookie.net/rickandmorty/images/0/0a/S5e10_rick_and_two_crows_intro.png",
 ];
 
+// So I downloaded the images and made an array with the file names in order
 export const banners2 = [
   "S1e1_Rick-and-morty.png",
   "Lawnmower_Dog.png",

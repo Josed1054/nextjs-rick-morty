@@ -1,13 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { SyntheticEvent, useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { EPISODE_COUNT } from "../../utils/types/episode_count";
 import { CHARACTER } from "../../utils/types/character";
-import { banners2 } from "../../utils/arrays/episode-arrays";
 import Link from "next/link";
 import { displayEpisodes } from "../episodes-skeleton";
 
+// serve single character
 export function CharacterSkeleton(props: EPISODE_COUNT) {
+  // handle animation
+  const [animation] = useAutoAnimate();
+
+  // handle states
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const [data, setData] = useState<CHARACTER>({
@@ -34,6 +39,7 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
   const [episodes, setEpisodes] = useState<any[]>([]);
   const [partOfEpisodes, setPartOfEpisodes] = useState<any[]>([]);
 
+  // fetch by page, and update record count
   useEffect(() => {
     axios
       .get(`https://rickandmortyapi.com/api/character/${props.count}`)
@@ -47,13 +53,7 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
           axios
             .get(episode)
             .then((Res2) => {
-              let bannerImage = "";
-              banners2.forEach((banner, index) => {
-                if (index + 1 === Res.data.id) {
-                  return (bannerImage = banner);
-                }
-              });
-              char.push({ ...Res2.data, image: bannerImage });
+              char.push({ ...Res2.data });
             })
             .then(() => {
               setEpisodes([...char]);
@@ -61,20 +61,34 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
             })
             .catch((error) => {
               console.log(props.count);
-
-              if (props.count !== NaN) {
-                console.log(error);
-              }
             });
         });
       })
       .catch((error) => {
-        if (props.count !== NaN) {
-          console.log(error);
-        }
+        setData({
+          id: 404,
+          name: "404",
+          status: "404",
+          species: "404",
+          type: "404",
+          gender: "404",
+          origin: {
+            name: "404",
+            url: "404",
+          },
+          location: {
+            name: "404",
+            url: "404",
+          },
+          image: "404",
+          episode: ["404"],
+          url: "404",
+          created: "404",
+        });
       });
   }, [props.count]);
 
+  // handle episode pagination
   useEffect(() => {
     let start = (page - 1) * 20;
     let end =
@@ -84,6 +98,7 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
     setPartOfEpisodes(episodes.slice(start, end));
   }, [page]);
 
+  // handle change pagination
   function changePage(event: SyntheticEvent) {
     const { name } = event.target as HTMLButtonElement;
 
@@ -96,42 +111,36 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
 
   return (
     <>
-      <div className="grid h-[82vh] max-height-[82vh] grid-center bg-gray-500">
+      <div
+        ref={animation as React.RefObject<HTMLDivElement>}
+        className="grid h-[65vh] max-height-[65vh] grid-center bg-gray-500"
+      >
         <img
           src={data.image}
           alt="Rick & Morty"
           width="100%"
           height="100%"
-          className="object-cover w-screen md:w-3/4 h-[82vh] max-height-[82vh] md:mx-auto col-[1] row-[1] max-w-7xl"
+          className="object-cover w-screen md:w-3/4 h-[65vh] max-height-[65vh] md:mx-auto col-[1] row-[1] max-w-7xl"
         />
       </div>
 
-      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`Name: ${
-        data.name === "" ? "404" : data.name
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Status: ${
-        data.status === "" ? "404" : data.status
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Species: ${
-        data.species === "" ? "404" : data.species
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Type: ${
-        data.type === "" ? "404" : data.type
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Gender: ${
-        data.gender === "" ? "404" : data.gender
-      }`}</p>
+      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`Name: ${data.name}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Status: ${data.status}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Species: ${data.species}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Type: ${data.type}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Gender: ${data.gender}`}</p>
       <p className="mt-4 text-center text-x md:text-xl">
         {" "}
         Origin:
-        <Link href={data.origin.url}>
-          {data.origin.name === "" ? "404" : data.origin.name}
-        </Link>
+        <Link href={data.origin.url}>{data.origin.name}</Link>
       </p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Created: ${
-        data.created === "" ? "404" : data.created.split("T").shift()
-      }`}</p>
-      <div className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl">
+      <p className="mt-4 text-center text-x md:text-xl">{`Created: ${data.created
+        .split("T")
+        .shift()}`}</p>
+      <div
+        ref={animation as React.RefObject<HTMLDivElement>}
+        className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl"
+      >
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"

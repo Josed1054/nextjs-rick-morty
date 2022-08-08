@@ -1,12 +1,18 @@
 import axios from "axios";
 import Head from "next/head";
 import { SyntheticEvent, useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { DisplayLocations } from "../../components/locations-skeleton";
 import { NavBar } from "../../components/navbar";
 import { QUERY_INFO } from "../../utils/types/info";
 import { LOCATION } from "../../utils/types/location";
 
+// serve all the locations with pagination
 function Characters() {
+  // handle animation
+  const [animation] = useAutoAnimate();
+
+  // handle states
   const [page, setPage] = useState(1);
   const [records, setRecords] = useState(20);
   const [info, setInfo] = useState<QUERY_INFO>({
@@ -17,6 +23,7 @@ function Characters() {
   });
   const [data, setData] = useState<LOCATION[]>([]);
 
+  // fetch by page, and update record count
   useEffect(() => {
     axios
       .get(`https://rickandmortyapi.com/api/location/?page=${page}`)
@@ -30,6 +37,7 @@ function Characters() {
       });
   }, [page]);
 
+  // handle pagination
   function changePage(event: SyntheticEvent) {
     const { name } = event.target as HTMLButtonElement;
 
@@ -40,13 +48,17 @@ function Characters() {
     }
   }
 
+  // render buttons for pagination and results
   return (
     <>
       <Head>
         <title>Rick / Morty</title>
       </Head>
       <NavBar />
-      <div className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl">
+      <div
+        ref={animation as React.RefObject<HTMLDivElement>}
+        className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl"
+      >
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"

@@ -1,35 +1,26 @@
-import autoAnimate from "@formkit/auto-animate";
 import Link from "next/link";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 
+// serve navbar
 export function NavBar() {
+  // handle navbar states
   const [dataInput, setDataInput] = useState("");
   const [navbar, setNavbar] = useState(false);
 
-  const parentAnimation = useRef(null);
-
-  useEffect(() => {
-    parentAnimation.current && autoAnimate(parentAnimation.current);
-  }, [parentAnimation]);
-
+  // handle user input
   function updateDataInput(event: SyntheticEvent) {
-    let { value } = event.target as HTMLInputElement;
-    value = value.replace(/[^0-9]/gi, "");
-
+    const { value } = event.target as HTMLInputElement;
     setDataInput(value);
   }
 
   return (
-    <nav
-      className="w-full bg-white shadow sticky top-0 z-[100]"
-      ref={parentAnimation}
-    >
+    <nav className="w-full bg-white shadow sticky top-0 z-[100]">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <Link href="/">
               <h2 className="text-xl font-bold cursor-pointer md:text-2xl">
-                Rick/Morty
+                Rick / Morty
               </h2>
             </Link>
             <div className="md:hidden">
@@ -101,7 +92,7 @@ export function NavBar() {
             <div className="flex w-full mt-4 md:mt-0 md:w-auto">
               <input
                 type="text"
-                placeholder="Search by ID only..."
+                placeholder="Search..."
                 className="w-5/6 pl-1 border-2 border-black rounded-lg md:w-auto focus:border-lime-500 focus:border-3 hover:border-lime-500 focus:outline-none"
                 autoComplete="off"
                 value={dataInput}

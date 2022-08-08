@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { CharacterSkeleton } from "../../components/character-skeleton";
 import { NavBar } from "../../components/navbar";
 
+// serve single episode result
 function ID() {
   const router = useRouter();
   const { id } = router.query;

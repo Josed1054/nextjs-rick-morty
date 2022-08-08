@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { LocationSkeleton } from "../../components/location-skeleton";
 import { NavBar } from "../../components/navbar";
 
+// serve single location result
 function ID() {
   const router = useRouter();
   const { id } = router.query;

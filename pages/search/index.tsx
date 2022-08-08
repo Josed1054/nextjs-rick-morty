@@ -2,6 +2,7 @@
 import Head from "next/head";
 import { NavBar } from "../../components/navbar";
 
+// main page for searching, has no content, only a gif as an easter egg, this page is unreachable from the nav bar, only users that directly type the route gets this page
 function search() {
   return (
     <>

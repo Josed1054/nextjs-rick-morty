@@ -1,21 +1,15 @@
 import type { NextPage } from "next";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { CHARACTERS } from "../utils/types/characters";
-import autoAnimate from "@formkit/auto-animate";
+import { useEffect, useState } from "react";
 import { NavBar } from "../components/navbar";
 import Head from "next/head";
 import { EpisodeSkeleton } from "../components/episode-skeleton";
 
+// server the main page
 const Home: NextPage = () => {
-  const parentAnimation = useRef(null);
-
-  useEffect(() => {
-    parentAnimation.current && autoAnimate(parentAnimation.current);
-  }, [parentAnimation]);
-
   const [episodesData, setEpisodesData] = useState(1);
 
+  // get the latest episode ID
   useEffect(() => {
     axios
       .get("https://rickandmortyapi.com/api/episode")
@@ -32,7 +26,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Rick / Morty</title>
       </Head>
-      <div ref={parentAnimation}>
+      <div>
         <NavBar />
         <EpisodeSkeleton count={episodesData} />
       </div>

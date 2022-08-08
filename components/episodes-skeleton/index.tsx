@@ -3,6 +3,7 @@ import Link from "next/link";
 import { banners2 } from "../../utils/arrays/episode-arrays";
 import { EPISODE } from "../../utils/types/episode";
 
+// server episodes boxes
 export function displayEpisodes(props: EPISODE[]) {
   return props.map((episode, index) => {
     return (

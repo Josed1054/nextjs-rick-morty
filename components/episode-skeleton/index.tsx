@@ -1,12 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { SyntheticEvent, useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { EPISODE_COUNT } from "../../utils/types/episode_count";
 import { EPISODE } from "../../utils/types/episode";
-import { banners2 } from "../../utils/arrays/episode-arrays";
 import { displayCharacters } from "../characters-skeleton";
+import { banners2 } from "../../utils/arrays/episode-arrays";
 
+// serve single episode
 export function EpisodeSkeleton(props: EPISODE_COUNT) {
+  // handle animation
+  const [animation] = useAutoAnimate();
+
+  // handle states
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const [data, setData] = useState<EPISODE>({
@@ -23,23 +29,13 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
   const [characters, setCharacters] = useState<any[]>([]);
   const [partOfCharacters, setPartOfCharacters] = useState<any[]>([]);
 
+  // fetch data
   useEffect(() => {
     axios
       .get(`https://rickandmortyapi.com/api/episode/${props.count}`)
       .then((Res) => {
         setData(Res.data);
         setPages(Math.ceil(Res.data.characters.length / 20));
-
-        banners2.forEach((banner, index) => {
-          if (index + 1 === Res.data.id) {
-            return setData((prevData) => {
-              return {
-                ...prevData,
-                banner: `/resources/episodes-imgs/${banner}`,
-              };
-            });
-          }
-        });
 
         let char: any = [];
 
@@ -59,10 +55,21 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
         });
       })
       .catch((error) => {
+        setData({
+          id: 404,
+          banner: "404",
+          name: "404",
+          air_date: "404",
+          episode: "404",
+          characters: ["404"],
+          url: "404",
+          created: "404",
+        });
         console.log(error);
       });
   }, [props.count]);
 
+  // handle pagination for characters
   useEffect(() => {
     let start = (page - 1) * 20;
     let end =
@@ -72,6 +79,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
     setPartOfCharacters(characters.slice(start, end));
   }, [page]);
 
+  // handle change pagination
   function changePage(event: SyntheticEvent) {
     const { name } = event.target as HTMLButtonElement;
 
@@ -86,11 +94,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
     <>
       <div className="grid h-[50vh] max-height-[50vh] grid-center bg-gray-500">
         <img
-          src={`${
-            data.banner === "" || data.banner === undefined
-              ? "../../../../resources/episodes-imgs/No_Image.webp"
-              : data.banner
-          }`}
+          src={`${`/resources/episodes-imgs/${banners2[data.id - 1]}`}`}
           alt="Rick & Morty"
           width="100%"
           height="100%"
@@ -98,24 +102,21 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
         />
         <div className="bg-lime-500 col-[1] row-[1] self-center justify-center w-1/5 h-[6vh] md:w-[8vw] md:h-[6vh] mx-auto flex rounded-lg">
           <p className="m-auto font-bold text-center text-gray-800 text-x md:text-xl md:text-2xl justify-self-center">
-            {data.episode === "" ? "404" : data.episode}
+            {data.episode}
           </p>
         </div>
       </div>
 
-      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`Episode Name: ${
-        data.name === "" ? "404" : data.name
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Air Date: ${
-        data.air_date === "" ? "404" : data.air_date
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Created: ${
-        data.created === "" ? "404" : data.created.split("T").shift()
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Characters: ${
-        data.characters.length === 1 ? "0" : data.characters.length
-      }`}</p>
-      <div className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl">
+      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`Episode Name: ${data.name}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Air Date: ${data.air_date}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Created: ${data.created
+        .split("T")
+        .shift()}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Characters: ${data.characters.length}`}</p>
+      <div
+        ref={animation as React.RefObject<HTMLDivElement>}
+        className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl"
+      >
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"

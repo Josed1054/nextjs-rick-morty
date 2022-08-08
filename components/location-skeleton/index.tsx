@@ -1,11 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { SyntheticEvent, useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { EPISODE_COUNT } from "../../utils/types/episode_count";
 import { displayCharacters } from "../characters-skeleton";
 import { LOCATION } from "../../utils/types/location";
 
+// serve single location
 export function LocationSkeleton(props: EPISODE_COUNT) {
+  // handle animation
+  const [animation] = useAutoAnimate();
+
+  // handle states
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const [data, setData] = useState<LOCATION>({
@@ -21,6 +27,7 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
   const [characters, setCharacters] = useState<any[]>([]);
   const [partOfCharacters, setPartOfCharacters] = useState<any[]>([]);
 
+  // fetch data
   useEffect(() => {
     axios
       .get(`https://rickandmortyapi.com/api/location/${props.count}`)
@@ -46,10 +53,20 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
         });
       })
       .catch((error) => {
+        setData({
+          id: 404,
+          name: "404",
+          type: "404",
+          dimension: "404",
+          residents: ["404"],
+          url: "404",
+          created: "404",
+        });
         console.log(error);
       });
   }, [props.count]);
 
+  // handle pagination for residents
   useEffect(() => {
     let start = (page - 1) * 20;
     let end =
@@ -59,6 +76,7 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
     setPartOfCharacters(characters.slice(start, end));
   }, [page]);
 
+  // handle change pagination
   function changePage(event: SyntheticEvent) {
     const { name } = event.target as HTMLButtonElement;
 
@@ -71,22 +89,17 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
 
   return (
     <>
-      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`ID: ${
-        data.id === 0 ? "404" : data.id
-      }`}</p>
-      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`Name: ${
-        data.name === "" ? "404" : data.name
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Type: ${
-        data.type === "" ? "404" : data.type
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Dimension: ${
-        data.dimension === "" ? "404" : data.dimension
-      }`}</p>
-      <p className="mt-4 text-center text-x md:text-xl">{`Created: ${
-        data.created === "" ? "404" : data.created.split("T").shift()
-      }`}</p>
-      <div className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl">
+      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`ID: ${data.id}`}</p>
+      <p className="py-4 mt-4 text-center text-x md:text-xl text-bold bg-lime-500">{`Name: ${data.name}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Type: ${data.type}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Dimension: ${data.dimension}`}</p>
+      <p className="mt-4 text-center text-x md:text-xl">{`Created: ${data.created
+        .split("T")
+        .shift()}`}</p>
+      <div
+        ref={animation as React.RefObject<HTMLDivElement>}
+        className="flex flex-wrap mx-auto my-4 md:w-3/4 md:max-width-3/4 md:justify-between md:gap-4 max-w-7xl"
+      >
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { CHARACTER } from "../../utils/types/character";
 
+// server characters boxes
 export function displayCharacters(props: CHARACTER[]) {
   return props.map((character, index) => {
     return (

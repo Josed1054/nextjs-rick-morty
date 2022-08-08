@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { LOCATION } from "../../utils/types/location";
 
+// serve locations boxes
 export function DisplayLocations(props: LOCATION[]) {
   return props.map((location, index) => {
     return (
