@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { MdInfoOutline } from "react-icons/md";
 import { banners2 } from "../../utils/arrays/episode-arrays";
 import { EPISODE } from "../../utils/types/episode";
 
@@ -13,7 +14,7 @@ export function displayEpisodes(props: EPISODE[]) {
       >
         <img
           className="w-1/3 my-auto rounded-l-lg"
-          src={`/resources/episodes-imgs/${banners2[episode.id - 1]}`}
+          src={`/resources/episodes-imgs/${banners2[episode.id]}`}
           alt={episode.name}
         />
         <div className="w-3/5 m-auto">
@@ -24,9 +25,7 @@ export function displayEpisodes(props: EPISODE[]) {
           <p>{`Created: ${episode.created.split("T").shift()}`}</p>
           <div className="absolute top-4 right-4 cursor-pointer z-[80]">
             <Link href={`/episodes/${episode.id}`}>
-              <span className="rounded-full material-symbols-outlined bg-lime-500">
-                info
-              </span>
+              <MdInfoOutline className="scale-150 rounded-full bg-lime-500" />
             </Link>
           </div>
         </div>

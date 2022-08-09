@@ -5,10 +5,6 @@ export default function Document() {
     <Html>
       <Head>
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=optional"
-        />
-        <link
           rel="icon"
           href="/resources/icon-tab/favicon-32x32.png"
           type="image/png"

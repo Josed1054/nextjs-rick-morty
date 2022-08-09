@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { MdInfoOutline } from "react-icons/md";
 import { CHARACTER } from "../../utils/types/character";
 
 // server characters boxes
@@ -22,9 +23,7 @@ export function displayCharacters(props: CHARACTER[]) {
           <p>{`Created: ${character.created.split("T").shift()}`}</p>
           <div className="absolute top-4 right-4 cursor-pointer z-[80]">
             <Link href={`/characters/${character.id}`}>
-              <span className="rounded-full material-symbols-outlined bg-lime-500">
-                info
-              </span>
+              <MdInfoOutline className="scale-150 rounded-full bg-lime-500" />
             </Link>
           </div>
         </div>

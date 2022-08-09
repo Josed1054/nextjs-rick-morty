@@ -31,42 +31,44 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
 
   // fetch data
   useEffect(() => {
-    axios
-      .get(`https://rickandmortyapi.com/api/episode/${props.count}`)
-      .then((Res) => {
-        setData(Res.data);
-        setPages(Math.ceil(Res.data.characters.length / 20));
+    if (props.count !== NaN && props.count !== undefined) {
+      axios
+        .get(`https://rickandmortyapi.com/api/episode/${props.count || ""}`)
+        .then((Res) => {
+          setData(Res.data);
+          setPages(Math.ceil(Res.data.characters.length / 20));
 
-        let char: any = [];
+          let char: any = [];
 
-        Res.data.characters.forEach((character: string) => {
-          axios
-            .get(character)
-            .then((Res2) => {
-              char.push(Res2.data);
-            })
-            .then(() => {
-              setCharacters([...char]);
-              setPartOfCharacters(char.slice(0, 20));
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          Res.data.characters.forEach((character: string) => {
+            axios
+              .get(character)
+              .then((Res2) => {
+                char.push(Res2.data);
+              })
+              .then(() => {
+                setCharacters([...char]);
+                setPartOfCharacters(char.slice(0, 20));
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+        })
+        .catch((error) => {
+          setData({
+            id: 0,
+            banner: "0",
+            name: "404",
+            air_date: "404",
+            episode: "404",
+            characters: ["404"],
+            url: "404",
+            created: "404",
+          });
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        setData({
-          id: 404,
-          banner: "404",
-          name: "404",
-          air_date: "404",
-          episode: "404",
-          characters: ["404"],
-          url: "404",
-          created: "404",
-        });
-        console.log(error);
-      });
+    }
   }, [props.count]);
 
   // handle pagination for characters
@@ -94,7 +96,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
     <>
       <div className="grid h-[50vh] max-height-[50vh] grid-center bg-gray-500">
         <img
-          src={`${`/resources/episodes-imgs/${banners2[data.id - 1]}`}`}
+          src={`/resources/episodes-imgs/${banners2[data.id]}`}
           alt="Rick & Morty"
           width="100%"
           height="100%"
@@ -120,7 +122,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
               page > 1 ? "" : "invisible"
             }`}
             name="prev"
@@ -131,7 +133,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
           <p className="self-center w-1/2 text-xl text-center">{`Page ${page} - ${pages}`}</p>
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
               page < pages ? "" : "invisible"
             }`}
             name="next"

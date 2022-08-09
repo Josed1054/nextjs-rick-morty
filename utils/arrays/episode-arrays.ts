@@ -55,6 +55,7 @@ export const banners = [
 
 // So I downloaded the images and made an array with the file names in order
 export const banners2 = [
+  "No_Image.webp",
   "S1e1_Rick-and-morty.png",
   "Lawnmower_Dog.png",
   "Anatomy_Park_7.png",

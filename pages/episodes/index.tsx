@@ -62,7 +62,7 @@ function Characters() {
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
               info.prev === "" || info.prev === null || info.prev === undefined
                 ? "invisible"
                 : ""
@@ -77,8 +77,8 @@ function Characters() {
           } - ${records}`}</p>
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
-              info.prev === "" || info.next === null || info.prev === undefined
+            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+              info.next === "" || info.next === null || info.next === undefined
                 ? "invisible"
                 : ""
             }`}

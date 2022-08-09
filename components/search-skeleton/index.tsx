@@ -9,6 +9,7 @@ import { LOCATION } from "../../utils/types/location";
 import { displayCharacters } from "../characters-skeleton";
 import { displayEpisodes } from "../episodes-skeleton";
 import { DisplayLocations } from "../locations-skeleton";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 // serve search response
 export function DisplaySearch(props: { query: string }) {
@@ -110,99 +111,125 @@ export function DisplaySearch(props: { query: string }) {
 
   // fecth on every page and prop change
   useEffect(() => {
-    axios
-      .get(
-        `https://rickandmortyapi.com/api/character/?page=${charactersPage}&name=${props.query}`
-      )
-      .then((Res) => {
-        setCharactersInfo(Res.data.info);
-        setCharacters(Res.data.results);
-        setCharactersRecords(
-          (charactersPage - 1) * 20 + Res.data.results.length
-        );
-      })
-      .catch((error) => {
-        setCharacters([
-          {
-            id: 404,
-            name: "404",
-            status: "404",
-            species: "404",
-            type: "404",
-            gender: "404",
-            origin: {
+    if (
+      props.query !== null &&
+      props.query !== undefined &&
+      props.query !== "undefined"
+    ) {
+      axios
+        .get(
+          `https://rickandmortyapi.com/api/character/?page=${charactersPage}&name=${
+            props.query || " "
+          }`
+        )
+        .then((Res) => {
+          setCharactersInfo(Res.data.info);
+          setCharacters(Res.data.results);
+          setCharactersRecords(
+            (charactersPage - 1) * 20 + Res.data.results.length
+          );
+        })
+        .catch((error) => {
+          setCharacters([
+            {
+              id: 404,
               name: "404",
+              status: "404",
+              species: "404",
+              type: "404",
+              gender: "404",
+              origin: {
+                name: "404",
+                url: "404",
+              },
+              location: {
+                name: "404",
+                url: "404",
+              },
+              image: "404",
+              episode: ["404"],
               url: "404",
+              created: "404",
             },
-            location: {
-              name: "404",
-              url: "404",
-            },
-            image: "404",
-            episode: ["404"],
-            url: "404",
-            created: "404",
-          },
-        ]);
-        setCharactersRecords(0);
+          ]);
+          setCharactersRecords(0);
 
-        console.log(error);
-      });
+          console.log(error);
+        });
+    }
   }, [charactersPage, props.query]);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://rickandmortyapi.com/api/episode/?page=${episodesPage}&name=${props.query}`
-      )
-      .then((Res) => {
-        setEpisodesInfo(Res.data.info);
-        setEpisodes(Res.data.results);
-        setEpisodesRecords((episodesPage - 1) * 20 + Res.data.results.length);
-      })
-      .catch((error) => {
-        setEpisodes([
-          {
-            id: 404,
-            banner: "404",
-            name: "404",
-            air_date: "404",
-            episode: "404",
-            characters: ["404"],
-            url: "404",
-            created: "404",
-          },
-        ]);
-        setEpisodesRecords(0);
-        console.log(error);
-      });
+    if (
+      props.query !== null &&
+      props.query !== undefined &&
+      props.query !== "undefined"
+    ) {
+      axios
+        .get(
+          `https://rickandmortyapi.com/api/episode/?page=${episodesPage}&name=${
+            props.query || " "
+          }`
+        )
+        .then((Res) => {
+          setEpisodesInfo(Res.data.info);
+          setEpisodes(Res.data.results);
+          setEpisodesRecords((episodesPage - 1) * 20 + Res.data.results.length);
+        })
+        .catch((error) => {
+          setEpisodes([
+            {
+              id: 0,
+              banner: "0",
+              name: "404",
+              air_date: "404",
+              episode: "404",
+              characters: ["404"],
+              url: "404",
+              created: "404",
+            },
+          ]);
+          setEpisodesRecords(0);
+          console.log(error);
+        });
+    }
   }, [episodesPage, props.query]);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://rickandmortyapi.com/api/location/?page=${locationsPage}&name=${props.query}`
-      )
-      .then((Res) => {
-        setLocationsInfo(Res.data.info);
-        setLocations(Res.data.results);
-        setLocationsRecords((locationsPage - 1) * 20 + Res.data.results.length);
-      })
-      .catch((error) => {
-        setLocations([
-          {
-            id: 404,
-            name: "404",
-            type: "404",
-            dimension: "404",
-            residents: ["404"],
-            url: "404",
-            created: "404",
-          },
-        ]);
-        setLocationsRecords(0);
-        console.log(error);
-      });
+    if (
+      props.query !== null &&
+      props.query !== undefined &&
+      props.query !== "undefined"
+    ) {
+      axios
+        .get(
+          `https://rickandmortyapi.com/api/location/?page=${locationsPage}&name=${
+            props.query || " "
+          }`
+        )
+        .then((Res) => {
+          setLocationsInfo(Res.data.info);
+          setLocations(Res.data.results);
+          setLocationsRecords(
+            (locationsPage - 1) * 20 + Res.data.results.length
+          );
+        })
+        .catch((error) => {
+          setLocations([
+            {
+              id: 404,
+              name: "404",
+              type: "404",
+              dimension: "404",
+              residents: ["404"],
+              url: "404",
+              created: "404",
+            },
+          ]);
+          setLocationsRecords(0);
+          console.log(error);
+        });
+    }
   }, [locationsPage, props.query]);
 
   // handle searches pagination
@@ -257,13 +284,19 @@ export function DisplaySearch(props: { query: string }) {
         ref={animationCharacters as React.RefObject<HTMLDivElement>}
         className="relative flex flex-col m-auto mt-4 md:w-3/4 md:max-width-3/4 max-w-7xl"
       >
-        <span
-          className="absolute cursor-pointer top-1 right-4 material-symbols-outlined"
-          onClick={hideSearch}
-          id="1"
-        >
-          {!hideCharacters ? "expand_less" : "expand_more"}
-        </span>
+        {hideCharacters ? (
+          <MdKeyboardArrowDown
+            className="absolute scale-150 cursor-pointer top-1 right-4 material-symbols-outlined"
+            onClick={hideSearch}
+            id="1"
+          />
+        ) : (
+          <MdKeyboardArrowUp
+            className="absolute scale-150 cursor-pointer top-1 right-4 material-symbols-outlined"
+            onClick={hideSearch}
+            id="1"
+          />
+        )}
         <p className="self-center w-1/2 text-center text-x md:text-xl">
           Characters Results:
         </p>
@@ -272,7 +305,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
                   charactersInfo.prev === "" ||
                   charactersInfo.prev === null ||
                   charactersInfo.prev === undefined
@@ -290,10 +323,10 @@ export function DisplaySearch(props: { query: string }) {
               } - ${charactersRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
-                  charactersInfo.prev === "" ||
+                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                  charactersInfo.next === "" ||
                   charactersInfo.next === null ||
-                  charactersInfo.prev === undefined
+                  charactersInfo.next === undefined
                     ? "invisible"
                     : ""
                 } ${hideCharacters ? "none" : ""}`}
@@ -312,13 +345,19 @@ export function DisplaySearch(props: { query: string }) {
         ref={animationEpisodes as React.RefObject<HTMLDivElement>}
         className="relative flex flex-col m-auto mt-4 md:w-3/4 md:max-width-3/4 max-w-7xl"
       >
-        <span
-          className="absolute cursor-pointer top-1 right-4 material-symbols-outlined"
-          onClick={hideSearch}
-          id="2"
-        >
-          {!hideEpisodes ? "expand_less" : "expand_more"}
-        </span>
+        {hideEpisodes ? (
+          <MdKeyboardArrowDown
+            className="absolute scale-150 cursor-pointer top-1 right-4 material-symbols-outlined"
+            onClick={hideSearch}
+            id="2"
+          />
+        ) : (
+          <MdKeyboardArrowUp
+            className="absolute scale-150 cursor-pointer top-1 right-4 material-symbols-outlined"
+            onClick={hideSearch}
+            id="2"
+          />
+        )}
         <p className="self-center w-1/2 text-center text-x md:text-xl">
           Episodes Results:
         </p>
@@ -327,7 +366,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
                   episodesInfo.prev === "" ||
                   episodesInfo.prev === null ||
                   episodesInfo.prev === undefined
@@ -345,10 +384,10 @@ export function DisplaySearch(props: { query: string }) {
               } - ${episodesRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
-                  episodesInfo.prev === "" ||
+                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                  episodesInfo.next === "" ||
                   episodesInfo.next === null ||
-                  episodesInfo.prev === undefined
+                  episodesInfo.next === undefined
                     ? "invisible"
                     : ""
                 }`}
@@ -367,13 +406,19 @@ export function DisplaySearch(props: { query: string }) {
         ref={animationLocations as React.RefObject<HTMLDivElement>}
         className="relative flex flex-col m-auto my-4 md:w-3/4 md:max-width-3/4 max-w-7xl"
       >
-        <span
-          className="absolute cursor-pointer top-1 right-4 material-symbols-outlined"
-          onClick={hideSearch}
-          id="3"
-        >
-          {!hideLocations ? "expand_less" : "expand_more"}
-        </span>
+        {hideLocations ? (
+          <MdKeyboardArrowDown
+            className="absolute scale-150 cursor-pointer top-1 right-4 material-symbols-outlined"
+            onClick={hideSearch}
+            id="3"
+          />
+        ) : (
+          <MdKeyboardArrowUp
+            className="absolute scale-150 cursor-pointer top-1 right-4 material-symbols-outlined"
+            onClick={hideSearch}
+            id="3"
+          />
+        )}
         <p className="self-center w-1/2 text-center text-x md:text-xl">
           Locations Results:
         </p>
@@ -382,7 +427,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
                   locationsInfo.prev === "" ||
                   locationsInfo.prev === null ||
                   locationsInfo.prev === undefined
@@ -401,9 +446,9 @@ export function DisplaySearch(props: { query: string }) {
               <button
                 type="button"
                 className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
-                  locationsInfo.prev === "" ||
+                  locationsInfo.next === "" ||
                   locationsInfo.next === null ||
-                  locationsInfo.prev === undefined
+                  locationsInfo.next === undefined
                     ? "invisible"
                     : ""
                 }`}

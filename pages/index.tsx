@@ -7,7 +7,7 @@ import { EpisodeSkeleton } from "../components/episode-skeleton";
 
 // server the main page
 const Home: NextPage = () => {
-  const [episodesData, setEpisodesData] = useState(1);
+  const [episodesData, setEpisodesData] = useState(0);
 
   // get the latest episode ID
   useEffect(() => {

@@ -29,41 +29,43 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
 
   // fetch data
   useEffect(() => {
-    axios
-      .get(`https://rickandmortyapi.com/api/location/${props.count}`)
-      .then((Res) => {
-        setData(Res.data);
-        setPages(Math.ceil(Res.data.residents.length / 20));
+    if (props.count !== NaN && props.count !== undefined) {
+      axios
+        .get(`https://rickandmortyapi.com/api/location/${props.count || ""}`)
+        .then((Res) => {
+          setData(Res.data);
+          setPages(Math.ceil(Res.data.residents.length / 20));
 
-        let char: any = [];
+          let char: any = [];
 
-        Res.data.residents.forEach((character: string) => {
-          axios
-            .get(character)
-            .then((Res2) => {
-              char.push(Res2.data);
-            })
-            .then(() => {
-              setCharacters([...char]);
-              setPartOfCharacters(char.slice(0, 20));
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          Res.data.residents.forEach((character: string) => {
+            axios
+              .get(character)
+              .then((Res2) => {
+                char.push(Res2.data);
+              })
+              .then(() => {
+                setCharacters([...char]);
+                setPartOfCharacters(char.slice(0, 20));
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+        })
+        .catch((error) => {
+          setData({
+            id: 404,
+            name: "404",
+            type: "404",
+            dimension: "404",
+            residents: ["404"],
+            url: "404",
+            created: "404",
+          });
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        setData({
-          id: 404,
-          name: "404",
-          type: "404",
-          dimension: "404",
-          residents: ["404"],
-          url: "404",
-          created: "404",
-        });
-        console.log(error);
-      });
+    }
   }, [props.count]);
 
   // handle pagination for residents
@@ -103,7 +105,7 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
               page > 1 ? "" : "invisible"
             }`}
             name="prev"
@@ -114,7 +116,7 @@ export function LocationSkeleton(props: EPISODE_COUNT) {
           <p className="self-center w-1/2 text-xl text-center">{`Page ${page} - ${pages}`}</p>
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
               page < pages ? "" : "invisible"
             }`}
             name="next"

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { MdSearch } from "react-icons/md";
 
 // serve navbar
 export function NavBar() {
@@ -68,24 +69,26 @@ export function NavBar() {
             }`}
           >
             <ul className="items-center justify-center space-y-4 md:flex md:space-x-6 md:space-y-0 md:pr-4">
-              <li className="text-gray-600 hover:text-lime-500">
+              <li>
                 <Link href="/">
-                  <a>Home</a>
+                  <a className="text-gray-600 hover:text-lime-500">Home</a>
                 </Link>
               </li>
-              <li className="text-gray-600 hover:text-lime-500">
+              <li>
                 <Link href="/characters">
-                  <a>Characters</a>
+                  <a className="text-gray-600 hover:text-lime-500">
+                    Characters
+                  </a>
                 </Link>
               </li>
-              <li className="text-gray-600 hover:text-lime-500">
+              <li>
                 <Link href="/episodes">
-                  <a>Episodes</a>
+                  <a className="text-gray-600 hover:text-lime-500">Episodes</a>
                 </Link>
               </li>
-              <li className="text-gray-600 hover:text-lime-500">
+              <li>
                 <Link href="/locations">
-                  <a>Locations</a>
+                  <a className="text-gray-600 hover:text-lime-500">Locations</a>
                 </Link>
               </li>
             </ul>
@@ -100,7 +103,7 @@ export function NavBar() {
               />
               <div className="flex items-center justify-center w-1/6 m-auto cursor-pointer md:ml-4">
                 <Link href={`/search/${dataInput}`}>
-                  <span className="material-symbols-outlined">search</span>
+                  <MdSearch className="scale-150" />
                 </Link>
               </div>
             </div>
