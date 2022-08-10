@@ -132,9 +132,10 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
       <p className="mt-4 text-center text-x md:text-xl">{`Type: ${data.type}`}</p>
       <p className="mt-4 text-center text-x md:text-xl">{`Gender: ${data.gender}`}</p>
       <p className="mt-4 text-center text-x md:text-xl">
-        {" "}
-        Origin:
-        <Link href={data.origin.url}>{data.origin.name}</Link>
+        Origin:{" "}
+        <Link href={`/locations/${data.origin.url.split("/").pop()}`}>
+          <a className="text-lime-500">{data.origin.name}</a>
+        </Link>
       </p>
       <p className="mt-4 text-center text-x md:text-xl">{`Created: ${data.created
         .split("T")
@@ -146,7 +147,7 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+            className={`border-solid border-2 border-lime-500 rounded-lg  max-h-[4.5vh] w-[15vw] md:w-[7vw] ${
               page > 1 ? "" : "invisible"
             }`}
             name="prev"
@@ -157,7 +158,7 @@ export function CharacterSkeleton(props: EPISODE_COUNT) {
           <p className="self-center w-1/2 text-xl text-center">{`Page ${page} - ${pages}`}</p>
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
               page < pages ? "" : "invisible"
             }`}
             name="next"

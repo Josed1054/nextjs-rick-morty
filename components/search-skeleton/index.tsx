@@ -119,7 +119,7 @@ export function DisplaySearch(props: { query: string }) {
       axios
         .get(
           `https://rickandmortyapi.com/api/character/?page=${charactersPage}&name=${
-            props.query || " "
+            props.query || ""
           }`
         )
         .then((Res) => {
@@ -168,7 +168,7 @@ export function DisplaySearch(props: { query: string }) {
       axios
         .get(
           `https://rickandmortyapi.com/api/episode/?page=${episodesPage}&name=${
-            props.query || " "
+            props.query || ""
           }`
         )
         .then((Res) => {
@@ -204,7 +204,7 @@ export function DisplaySearch(props: { query: string }) {
       axios
         .get(
           `https://rickandmortyapi.com/api/location/?page=${locationsPage}&name=${
-            props.query || " "
+            props.query || ""
           }`
         )
         .then((Res) => {
@@ -305,7 +305,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
                   charactersInfo.prev === "" ||
                   charactersInfo.prev === null ||
                   charactersInfo.prev === undefined
@@ -323,7 +323,7 @@ export function DisplaySearch(props: { query: string }) {
               } - ${charactersRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
                   charactersInfo.next === "" ||
                   charactersInfo.next === null ||
                   charactersInfo.next === undefined
@@ -366,7 +366,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
                   episodesInfo.prev === "" ||
                   episodesInfo.prev === null ||
                   episodesInfo.prev === undefined
@@ -384,7 +384,7 @@ export function DisplaySearch(props: { query: string }) {
               } - ${episodesRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
                   episodesInfo.next === "" ||
                   episodesInfo.next === null ||
                   episodesInfo.next === undefined
@@ -427,7 +427,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
                   locationsInfo.prev === "" ||
                   locationsInfo.prev === null ||
                   locationsInfo.prev === undefined
@@ -445,7 +445,7 @@ export function DisplaySearch(props: { query: string }) {
               } - ${locationsRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg p-2 ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] ${
                   locationsInfo.next === "" ||
                   locationsInfo.next === null ||
                   locationsInfo.next === undefined

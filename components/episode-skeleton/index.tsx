@@ -122,7 +122,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
               page > 1 ? "" : "invisible"
             }`}
             name="prev"
@@ -133,7 +133,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
           <p className="self-center w-1/2 text-xl text-center">{`Page ${page} - ${pages}`}</p>
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg p-2 max-h-[4.5vh] ${
+            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] md:w-[7vw] max-h-[4.5vh] ${
               page < pages ? "" : "invisible"
             }`}
             name="next"
