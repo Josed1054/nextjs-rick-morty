@@ -9,7 +9,7 @@ export function DisplayLocations(props: LOCATION[]) {
     return (
       <div
         key={`${location.id} ${index}`}
-        className="md:flex-[30%] md:w[30%]  w-full p-3 min-h-[15vh] bg-gray-200 m-4 mt-4 md:m-0 rounded-lg relative"
+        className="md:flex-[30%] md:w[30%]  w-full p-3 min-h-[15vh] bg-gray-200 m-4 mt-4 md:m-0 rounded-lg relative max-h-[20vh]"
       >
         <p>{`ID: ${location.id}`}</p>
         <p>{location.name}</p>

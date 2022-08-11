@@ -10,14 +10,14 @@ export function displayEpisodes(props: EPISODE[]) {
     return (
       <div
         key={`${episode.id} ${index}`}
-        className="md:flex-[40%] md:w[50%] w-full p-3 min-h-[15vh] bg-gray-200 m-4 mt-4 md:m-0 rounded-lg relative flex"
+        className="md:flex-[40%] md:w[50%] w-full p-3 min-h-[15vh] bg-gray-200 m-4 mt-4 md:m-0 rounded-lg relative flex max-h-[20vh]"
       >
         <img
-          className="w-1/3 my-auto rounded-l-lg"
+          className="h-full my-auto rounded-l-lg"
           src={`/resources/episodes-imgs/${banners2[episode.id]}`}
           alt={episode.name}
         />
-        <div className="w-3/5 m-auto">
+        <div className="w-3/5 pl-4 m-auto">
           <p>{`ID: ${episode.id}`}</p>
           <p>{episode.name}</p>
           <p>{`Episode: ${episode.episode}`}</p>
