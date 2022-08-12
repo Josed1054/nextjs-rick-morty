@@ -102,8 +102,8 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
           height="100%"
           className="object-cover w-screen md:w-3/4 h-[50vh] max-height-[50vh] md:mx-auto col-[1] row-[1] max-w-7xl"
         />
-        <div className="bg-lime-500 col-[1] row-[1] self-center justify-center w-1/5 h-[6vh] md:w-[8vw] md:h-[6vh] mx-auto flex rounded-lg">
-          <p className="m-auto font-bold text-center text-gray-800 text-x md:text-xl md:text-2xl justify-self-center">
+        <div className="bg-lime-500 md:min-w-[100px] col-[1] row-[1] self-center justify-center w-1/5 h-[6vh] md:w-[8vw] md:h-[6vh] mx-auto flex rounded-lg">
+          <p className="m-auto text-xl font-bold text-center text-gray-800 text-x md:text-2xl justify-self-center">
             {data.episode}
           </p>
         </div>
@@ -122,7 +122,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
         <div className="flex-[100%] flex flex-wrap justify-around">
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
               page > 1 ? "" : "invisible"
             }`}
             name="prev"
@@ -133,7 +133,7 @@ export function EpisodeSkeleton(props: EPISODE_COUNT) {
           <p className="self-center w-1/2 text-xl text-center">{`Page ${page} - ${pages}`}</p>
           <button
             type="button"
-            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+            className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
               page < pages ? "" : "invisible"
             }`}
             name="next"

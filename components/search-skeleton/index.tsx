@@ -305,7 +305,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
                   charactersInfo.prev === "" ||
                   charactersInfo.prev === null ||
                   charactersInfo.prev === undefined
@@ -323,7 +323,7 @@ export function DisplaySearch(props: { query: string }) {
               } - ${charactersRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
                   charactersInfo.next === "" ||
                   charactersInfo.next === null ||
                   charactersInfo.next === undefined
@@ -366,7 +366,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
                   episodesInfo.prev === "" ||
                   episodesInfo.prev === null ||
                   episodesInfo.prev === undefined
@@ -384,7 +384,7 @@ export function DisplaySearch(props: { query: string }) {
               } - ${episodesRecords}`}</p>
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
                   episodesInfo.next === "" ||
                   episodesInfo.next === null ||
                   episodesInfo.next === undefined
@@ -427,7 +427,7 @@ export function DisplaySearch(props: { query: string }) {
             <div className="flex-[100%] flex flex-wrap justify-around">
               <button
                 type="button"
-                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[3vh] ${
+                className={`border-solid border-2 border-lime-500 rounded-lg w-[15vw] max-w-[76px] md:w-[7vw] max-h-[4vh] ${
                   locationsInfo.prev === "" ||
                   locationsInfo.prev === null ||
                   locationsInfo.prev === undefined
