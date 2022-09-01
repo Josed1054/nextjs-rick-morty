@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { MdSearch } from "react-icons/md";
 
 // serve navbar

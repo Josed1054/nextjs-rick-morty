@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { EpisodeSkeleton } from "../../components/skeletons/episode";
-import { NavBar } from "../../elements/navbar";
 
 // serve single episode result
 function ID() {
@@ -16,7 +15,6 @@ function ID() {
       <Head>
         <title>Rick / Morty</title>
       </Head>
-      <NavBar />
       <QueryClientProvider client={queryClient}>
         <EpisodeSkeleton count={Number(id)} />
       </QueryClientProvider>
