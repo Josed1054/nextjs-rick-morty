@@ -1,12 +1,15 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { CharacterSkeleton } from "../../components/character-skeleton";
-import { NavBar } from "../../components/navbar";
+import { CharacterSkeleton } from "../../components/skeletons/character";
+import { NavBar } from "../../elements/navbar";
 
 // serve single episode result
 function ID() {
   const router = useRouter();
   const { id } = router.query;
+
+  const queryClient = new QueryClient();
 
   return (
     <>
@@ -14,7 +17,9 @@ function ID() {
         <title>Rick / Morty</title>
       </Head>
       <NavBar />
-      <CharacterSkeleton count={Number(id)} />
+      <QueryClientProvider client={queryClient}>
+        <CharacterSkeleton count={Number(id)} />
+      </QueryClientProvider>
     </>
   );
 }
